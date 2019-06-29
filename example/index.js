@@ -1,10 +1,13 @@
-import { el } from "../dtnl";
-import { ThemeProvider } from "styled-components";
+import { injectSystem, el } from "../dtnl";
+import styled, { css, ThemeProvider } from "styled-components";
+import * as system from "./design-system";
+
+injectSystem(system, styled, css);
 
 import Home from "./home";
 
 const theme = {
-  color: { primary: "blue" }
+  color: { primary: "blue", secondary: "green" }
 };
 
 function App() {

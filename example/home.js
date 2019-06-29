@@ -1,17 +1,24 @@
-import styled, { css } from "styled-components";
+import { css } from "styled-components";
 import s, { vs, hs, Text, List, ListItem, div } from "../dtnl";
-import * as system from "./design-system";
 
-s.injectSystem(system, styled);
-
-const style = css`
+const blue = css`
   color: ${({ theme }) => theme.color.primary};
+`;
+const green = css`
+  color: ${({ theme }) => theme.color.secondary};
+`;
+const violet = css`
+  color: palevioletred;
 `;
 
 function Home() {
   return vs(
-    { css: style, m: 80, fontSize: "16px" },
-    s.div({ css: style }, "this is createElement"),
+    {
+      css: green,
+      m: 80,
+      fontSize: "16px"
+    },
+    div({ css: blue }, "this is createElement"),
     s.Heading({ mb: 20 }, "This is so much fun"),
     hs(
       { backgroundColor: "beige", justifyContent: "space-between" },
@@ -23,8 +30,8 @@ function Home() {
       { color: "black" },
       s.ul(s.li("it's"), s.li("a"), s.li("kind"), s.li("magic")),
       hs(
-        { backgroundColor: "white" },
-        List("welcome", "to", Text({ color: "hotpink" }, "alabama"))
+        { backgroundColor: "lightblue" },
+        List({ css: violet }, "welcome", "to", Text({ color: "orange" }, "alabama"))
       ),
       vs({ mt: 50 }, List("renders single item"))
     )

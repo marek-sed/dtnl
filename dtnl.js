@@ -46,9 +46,9 @@ function ui(comp, ...args) {
 ui.frag = (...children) => createNode(React.Fragment, children);
 ui.el = createElement;
 
-ui.injectSystem = (injection, applyCss) => {
+ui.injectSystem = function(injection, cssinjs) {
   system = injection;
-  styled = applyCss;
+  styled = cssinjs;
 };
 
 const handler = {
