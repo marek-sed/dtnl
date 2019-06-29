@@ -10,13 +10,7 @@ const isProps = props =>
   !props.$$typeof &&
   !Array.isArray(props);
 
-function createNode(type, ...args) {
-  const singleChild = args.length === 1;
-  let [props, ...children] = singleChild ? [null, ...args] : args;
-  if (!singleChild && !isProps(props)) {
-    children = [props, ...children];
-  }
-
+function createNode(type, props, children) {
   let component = system[type] || type;
   if (component.type === "list") {
     children = Children.map(children, child => {
@@ -28,7 +22,6 @@ function createNode(type, ...args) {
     });
   }
 
-  props = isProps(props) ? props : {};
   const { css, ...p } = props;
   if (css) {
     component = styled(component)`
@@ -36,11 +29,25 @@ function createNode(type, ...args) {
     `;
   }
 
-  return createElement(component, p, ...children);
+  if (Array.isArray(children)) {
+    return createElement(component, p, ...children);
+  }
+  return createElement(component, p, children);
 }
 
-function ui(comp, ...args) {
-  return (...props) => createNode(comp, ...props);
+function ui(comp) {
+  return (...args) => {
+    const [props, ...children] = args;
+    if (isProps(props)) {
+      if (children.length) {
+        return createNode(comp, props, children);
+      } else {
+        return (...children) => createNode(comp, props, children);
+      }
+    }
+
+    return createNode(comp, {}, args);
+  };
 }
 
 ui.frag = (...children) => createNode(React.Fragment, children);
