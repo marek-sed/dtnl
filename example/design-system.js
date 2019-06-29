@@ -15,14 +15,25 @@ export const hs = styled(Flex)`
   flex-direction: row;
 `;
 
-export const List = styled(Box)``;
+export const List = styled(Box)`
+  list-style: none;
+`;
 List.type = "list";
 List.defaultProps = {
-  as: "ul"
+  as: "ul",
+  m: 0,
+  p: "8px",
+  px: "16px"
 };
 
-export const ListItem = styled(Box)``;
+export const ListItem = styled(Box)`
+  color: #666;
+  text-decoration: underline;
+`;
+
 ListItem.type = "list-item";
 ListItem.defaultProps = {
-  as: "li"
+  as: "li",
+  py: "4px",
+  px: 0
 };
