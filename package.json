@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "create-react-app": "^3.0.1",
+    "parcel-bundler": "^1.12.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "styled-components": "^4.3.2",
+    "styled-system": "^5.0.12",
+    "webpack": "^4.35.0"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1"
+  }
+}
