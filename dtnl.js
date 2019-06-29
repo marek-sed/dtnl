@@ -1,6 +1,8 @@
 import { Children, createElement } from "react";
 
 let system;
+let styled;
+
 const isProps = props =>
   props !== null &&
   typeof props === `object` &&
@@ -15,7 +17,7 @@ function createNode(type, ...args) {
     children = [props, ...children];
   }
 
-  const component = system[type] || type;
+  let component = system[type] || type;
   if (component.type === "list") {
     children = Children.map(children, child => {
       if (child.type !== system.ListItem.type) {
@@ -27,17 +29,26 @@ function createNode(type, ...args) {
   }
 
   props = isProps(props) ? props : {};
-  return createElement(component, props, ...children);
+  const { css, ...p } = props;
+  if (css) {
+    component = styled(component)`
+      ${css}
+    `;
+  }
+
+  return createElement(component, p, ...children);
 }
 
 function ui(comp, ...args) {
   return (...props) => createNode(comp, ...props);
 }
 
-ui.fragment = (...children) => createNode(React.Fragment, children);
+ui.frag = (...children) => createNode(React.Fragment, children);
+ui.el = createElement;
 
-ui.injectSystem = injection => {
+ui.injectSystem = (injection, applyCss) => {
   system = injection;
+  styled = applyCss;
 };
 
 const handler = {
