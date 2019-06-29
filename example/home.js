@@ -20,7 +20,7 @@ function Home() {
       Text({ color: "teal" })("world"),
       div("yeah this works")
     ),
-    s.Box({ color: "black" })(
+    s.Box(
       s.ul(s.li("it's"), s.li("a"), s.li("kind"), s.li("of"), s.li("magic")),
       hs({ backgroundColor: "lightblue" })(
         List({ css: violet })(Text("welcome"), "to", Text({ color: "orange" }, "alabama"))
