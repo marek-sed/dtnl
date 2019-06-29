@@ -6,16 +6,23 @@ s.injectSystem(system);
 
 function Home() {
   return vs(
-    { p: 40, color: "pink", fontSize: "16px" },
+    { p: 40, color: "palevioletred", fontSize: "16px" },
+    s.Heading({ color: "plum" }, "This is so much fun"),
     hs(
-      { backgroundColor: "blue", width: 800, justifyContent: "space-between" },
+      { backgroundColor: "beige", width: 800, justifyContent: "space-between" },
       Text("hello"),
-      Text({ color: "red" }, "world"),
+      Text({ color: "teal" }, "world"),
       div("yeah this works")
     ),
-    s.ul(s.li("it's"), s.li("a"), s.li("kind"), s.li("magic")),
-    hs({ backgroundColor: "white" }, List("welcome", "to", Text({ color: "hotpink" }, "alabama"))),
-    vs({ mt: 50 }, List("renders single item"))
+    s.Box(
+      { color: "black" },
+      s.ul(s.li("it's"), s.li("a"), s.li("kind"), s.li("magic")),
+      hs(
+        { backgroundColor: "white" },
+        List("welcome", "to", Text({ color: "hotpink" }, "alabama"))
+      ),
+      vs({ mt: 50 }, List("renders single item"))
+    )
   );
 }
 
