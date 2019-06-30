@@ -35,9 +35,19 @@ function createNode(type, props, children) {
   return createElement(component, p, children);
 }
 
+function style(comp, css) {
+  return styled(comp)`
+    ${css}
+  `;
+}
+
 function ui(comp) {
-  return (...args) => {
+  return function(...args) {
     const [props, ...children] = args;
+    if (Array.isArray(props)) {
+      return style(comp, props);
+    }
+
     if (isProps(props)) {
       if (children.length) {
         return createNode(comp, props, children);
@@ -53,17 +63,17 @@ function ui(comp) {
 ui.frag = (...children) => createNode(React.Fragment, children);
 ui.el = createElement;
 
-ui.injectSystem = function(injection, cssinjs) {
-  system = injection;
-  styled = cssinjs;
-};
-
 const handler = {
   get: (target, prop) => (prop in target ? target[prop] : ui(prop))
 };
 
 const uiSystem = new Proxy(ui, handler);
 
+function injectSystem(injection, cssinjs) {
+  system = injection;
+  styled = cssinjs;
+}
+uiSystem.injectSystem = injectSystem;
 // this allows us to destructure
 module.exports = uiSystem;
 module.exports.default = uiSystem;
